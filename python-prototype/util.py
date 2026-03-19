@@ -1,6 +1,7 @@
+import json
+
 def int32(x: int) -> int:
     return ((x + 2**31) % 2**32) - 2**31
-
 
 def get_deterministic_hash_code(s: str) -> int:
     num = 352654597
@@ -20,3 +21,7 @@ def preprocess_seed(seed: str) -> str:
     seed = seed.replace('I', '1')
     seed = seed.strip()
     return seed
+
+def read_save_file_as_json(path):
+    with open(path, 'r') as fp:
+        return json.load(fp)

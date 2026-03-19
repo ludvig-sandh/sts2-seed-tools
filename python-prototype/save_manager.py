@@ -1,12 +1,7 @@
-import json
-
 from os import path
 
 from progress import Progress, Act
-
-def read_save_file_as_json(path):
-    with open(path, 'r') as fp:
-        return json.load(fp)
+from util import read_save_file_as_json
         
 class SaveManager:
     DISCOVERED_ACTS_KEY = "discovered_acts"
