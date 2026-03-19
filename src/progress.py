@@ -1,7 +1,6 @@
 from typing import List
 
 from act import Act
-from relics import get_all_relics
 
 
 class Progress:

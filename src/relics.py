@@ -3,6 +3,7 @@ from enum import Enum
 
 from character import Character
 
+
 class RelicsManager:
     class RelicRarity(Enum):
         NONE = 0
@@ -305,10 +306,10 @@ class RelicsManager:
     }
 
     def get_relic_rarity(relic_name: str) -> RelicRarity:
-        return RELIC_RARITY_MAPPING[relic_name]
+        return RelicsManager.RELIC_RARITY_MAPPING[relic_name]
 
     def get_all_relics() -> List[str]:
-        return RELIC_RARITY_MAPPING.keys()
+        return RelicsManager.RELIC_RARITY_MAPPING.keys()
 
     def get_character_relics(character: Character) -> List[str]:
         relic_sets = {
@@ -366,7 +367,7 @@ class RelicsManager:
         return relic_sets[character]
 
     def get_shared_relics() -> List[str]:
-        shared = get_all_relics()
+        shared = RelicsManager.get_all_relics()
         for character in Character:
-            shared -= get_character_relics(character)
+            shared -= RelicsManager.get_character_relics(character)
         return shared
