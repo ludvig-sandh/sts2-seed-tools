@@ -40,17 +40,15 @@ class Rng:
             if min_val <= value <= max_val:
                 return value
             
-    @staticmethod
-    def unstable_shuffle(lst, rng):
+    def unstable_shuffle(self, lst):
         num = len(lst)
         while num > 1:
             num -= 1
-            j = rng.next_int(num + 1)
+            j = self.next_int(num + 1)
             lst[j], lst[num] = lst[num], lst[j]
         return lst
-
-    @staticmethod
-    def stable_shuffle(lst, rng):
+    
+    def stable_shuffle(self, lst):
         try:
             baseline = sorted(lst)
         except TypeError:
@@ -59,4 +57,4 @@ class Rng:
         for i in range(len(lst)):
             lst[i] = baseline[i]
 
-        return Rng.unstable_shuffle(lst, rng)
+        return self.unstable_shuffle(lst)
