@@ -28,6 +28,7 @@ class Progress:
         self.discovered_cards = set()
         self.discovered_events = set()
         self.completed_ftues = set()
+        self.seen_encounters = set()
 
     def discover_act(self, act: Act):
         self.discovered_acts.add(act)
@@ -49,3 +50,6 @@ class Progress:
 
     def complete_ftue(self, ftue):
         self.completed_ftues.add(ftue)
+
+    def add_seen_encounter(self, encounter):
+        self.seen_encounters.add(encounter)

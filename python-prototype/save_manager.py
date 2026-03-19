@@ -16,6 +16,7 @@ class SaveManager:
     DISCOVERED_CARDS_KEY = "discovered_cards"
     DISCOVERED_EVENTS_KEY = "discovered_events"
     COMPLETED_FTUES_KEY = "ftue_completed"
+    ENCOUNTER_STATS_KEY = "encounter_stats"
 
     def __init__(self):
         self.progress = Progress()
@@ -58,6 +59,11 @@ class SaveManager:
         for completed_ftue_name in completed_ftues:
             self.progress.complete_ftue(completed_ftue_name)
 
+    def parse_encounter_stats(self, progress_json):
+        encounters = progress_json[self.ENCOUNTER_STATS_KEY]
+        for encounter in encounters:
+            self.progress.add_seen_encounter(encounter["encounter_id"])
+
     def parse_progress_json(self, progress_json) -> Progress:
         self.parse_discovered_acts(progress_json)
         self.parse_discovered_relics(progress_json)
@@ -66,6 +72,7 @@ class SaveManager:
         self.parse_discovered_cards(progress_json)
         self.parse_discovered_events(progress_json)
         self.parse_completed_ftues(progress_json)
+        self.parse_encounter_stats(progress_json)
         return self.progress
 
 def load_progress_save_file():
@@ -76,4 +83,4 @@ def load_progress_save_file():
 
 if __name__ == "__main__":
     progress = load_progress_save_file()
-    print(progress.completed_ftues)
+    print(progress.seen_encounters)
