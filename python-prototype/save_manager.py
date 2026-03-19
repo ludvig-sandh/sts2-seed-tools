@@ -11,6 +11,7 @@ def read_save_file_as_json(path):
 class SaveManager:
     DISCOVERED_ACTS_KEY = "discovered_acts"
     DISCOVERED_RELICS_KEY = "discovered_relics"
+    DISCOVERED_EPOCHS_KEY = "epochs"
 
     def __init__(self):
         self.progress = Progress()
@@ -19,18 +20,24 @@ class SaveManager:
         discovered_acts_json = progress_json[self.DISCOVERED_ACTS_KEY]
         for discovered_act_name in discovered_acts_json:
             act = Act.create_from_name(discovered_act_name)
-            self.progress.unlock_act(act)
+            self.progress.discover_act(act)
 
     def parse_discovered_relics(self, progress_json):
         discovered_relics_json = progress_json[self.DISCOVERED_RELICS_KEY]
         for discovered_relic_name in discovered_relics_json:
-            self.progress.unlock_relic(discovered_relic_name)
+            self.progress.discover_relic(discovered_relic_name)
+
+    def parse_discovered_epochs(self, progress_json):
+        discovered_epochs_json = progress_json[self.DISCOVERED_EPOCHS_KEY]
+        for discovered_epoch in discovered_epochs_json:
+            if discovered_epoch["state"] == "revealed":
+                epoch_id = discovered_epoch["id"]
+                self.progress.discover_epoch(epoch_id)
 
     def parse_progress_json(self, progress_json) -> Progress:
-        print(*progress_json.keys(), sep="\n")
-
         self.parse_discovered_acts(progress_json)
         self.parse_discovered_relics(progress_json)
+        self.parse_discovered_epochs(progress_json)
 
         return self.progress
 
@@ -42,5 +49,4 @@ def load_progress_save_file():
 
 if __name__ == "__main__":
     progress = load_progress_save_file()
-    print(progress.unlocked_acts)
-    print(progress.unlocked_relics)
+    print(progress.discovered_epochs)

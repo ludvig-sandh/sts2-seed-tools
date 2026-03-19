@@ -21,11 +21,15 @@ class Act(Enum):
 
 class Progress:
     def __init__(self):
-        self.unlocked_acts = set()
-        self.unlocked_relics = set()
+        self.discovered_acts = set()
+        self.discovered_relics = set()
+        self.discovered_epochs = set()
 
-    def unlock_act(self, act: Act):
-        self.unlocked_acts.add(act)
+    def discover_act(self, act: Act):
+        self.discovered_acts.add(act)
 
-    def unlock_relic(self, relic):
-        self.unlocked_relics.add(relic)
+    def discover_relic(self, relic):
+        self.discovered_relics.add(relic)
+
+    def discover_epoch(self, epoch):
+        self.discovered_epochs.add(epoch)
