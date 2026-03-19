@@ -34,3 +34,9 @@ class Progress:
 
     def add_seen_encounter(self, encounter):
         self.seen_encounters.add(encounter)
+
+    def is_act_discovered(self, act: Act) -> bool:
+        return act in self.discovered_acts
+    
+    def is_epoch_discovered(self, epoch: str) -> bool:
+        return epoch in self.discovered_epochs
