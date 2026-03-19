@@ -13,6 +13,9 @@ class SaveManager:
     DISCOVERED_RELICS_KEY = "discovered_relics"
     DISCOVERED_EPOCHS_KEY = "epochs"
     DISCOVERED_POTIONS_KEY = "discovered_potions"
+    DISCOVERED_CARDS_KEY = "discovered_cards"
+    DISCOVERED_EVENTS_KEY = "discovered_events"
+    COMPLETED_FTUES_KEY = "ftue_completed"
 
     def __init__(self):
         self.progress = Progress()
@@ -40,12 +43,29 @@ class SaveManager:
         for discovered_potion_name in discovered_potions_json:
             self.progress.discover_potion(discovered_potion_name)
 
+    def parse_discovered_cards(self, progress_json):
+        discovered_cards_json = progress_json[self.DISCOVERED_CARDS_KEY]
+        for discovered_card_name in discovered_cards_json:
+            self.progress.discover_card(discovered_card_name)
+
+    def parse_discovered_events(self, progress_json):
+        discovered_events_json = progress_json[self.DISCOVERED_EVENTS_KEY]
+        for discovered_event_name in discovered_events_json:
+            self.progress.discover_event(discovered_event_name)
+
+    def parse_completed_ftues(self, progress_json):
+        completed_ftues = progress_json[self.COMPLETED_FTUES_KEY]
+        for completed_ftue_name in completed_ftues:
+            self.progress.complete_ftue(completed_ftue_name)
+
     def parse_progress_json(self, progress_json) -> Progress:
         self.parse_discovered_acts(progress_json)
         self.parse_discovered_relics(progress_json)
         self.parse_discovered_epochs(progress_json)
         self.parse_discovered_potions(progress_json)
-
+        self.parse_discovered_cards(progress_json)
+        self.parse_discovered_events(progress_json)
+        self.parse_completed_ftues(progress_json)
         return self.progress
 
 def load_progress_save_file():
@@ -56,4 +76,4 @@ def load_progress_save_file():
 
 if __name__ == "__main__":
     progress = load_progress_save_file()
-    print(progress.discovered_potions)
+    print(progress.completed_ftues)

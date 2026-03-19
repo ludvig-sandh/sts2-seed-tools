@@ -25,6 +25,9 @@ class Progress:
         self.discovered_relics = set()
         self.discovered_epochs = set()
         self.discovered_potions = set()
+        self.discovered_cards = set()
+        self.discovered_events = set()
+        self.completed_ftues = set()
 
     def discover_act(self, act: Act):
         self.discovered_acts.add(act)
@@ -37,3 +40,12 @@ class Progress:
 
     def discover_potion(self, potion):
         self.discovered_potions.add(potion)
+
+    def discover_card(self, card):
+        self.discovered_cards.add(card)
+
+    def discover_event(self, event):
+        self.discovered_events.add(event)
+
+    def complete_ftue(self, ftue):
+        self.completed_ftues.add(ftue)
