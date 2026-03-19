@@ -1,18 +1,24 @@
-from rng import Rng
-from util import get_deterministic_hash_code
+from save_manager import SaveManager
+from run_state import RunState
+from act import ActGenerator, Act
+from util import preprocess_seed
 
-## Act
-def get_default_list():
-    return ["Overgrowth", "Hive", "Glory"]
+from dataclasses import dataclass
+from typing import List
 
-def get_random_list(seed: str):
-    acts = get_default_list()
-    rng = Rng(get_deterministic_hash_code(seed))
-    if rng.next_bool():
-        acts[0] = "Underdocks"
-    return acts
+@dataclass
+class RunResult:
+    acts: List["Act"]
 
+def start_run(seed: str):
+    seed = preprocess_seed(seed)
+    progress = SaveManager.load_progress_save_file()
+    acts = ActGenerator.generate_act_list(seed, progress)
+    run_state = RunState.create_for_new_run(seed)
+    return RunResult(acts)
+    
 
 if __name__ == "__main__":
-    seed = input("Input seed: ")
-    print("Acts:", get_random_list(seed))
+    seed = input("Input seed: ") or "A"
+    run_result = start_run(seed)
+    print("Acts:", run_result.acts)
