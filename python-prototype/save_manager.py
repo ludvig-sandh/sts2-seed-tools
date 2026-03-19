@@ -12,6 +12,7 @@ class SaveManager:
     DISCOVERED_ACTS_KEY = "discovered_acts"
     DISCOVERED_RELICS_KEY = "discovered_relics"
     DISCOVERED_EPOCHS_KEY = "epochs"
+    DISCOVERED_POTIONS_KEY = "discovered_potions"
 
     def __init__(self):
         self.progress = Progress()
@@ -34,10 +35,16 @@ class SaveManager:
                 epoch_id = discovered_epoch["id"]
                 self.progress.discover_epoch(epoch_id)
 
+    def parse_discovered_potions(self, progress_json):
+        discovered_potions_json = progress_json[self.DISCOVERED_POTIONS_KEY]
+        for discovered_potion_name in discovered_potions_json:
+            self.progress.discover_potion(discovered_potion_name)
+
     def parse_progress_json(self, progress_json) -> Progress:
         self.parse_discovered_acts(progress_json)
         self.parse_discovered_relics(progress_json)
         self.parse_discovered_epochs(progress_json)
+        self.parse_discovered_potions(progress_json)
 
         return self.progress
 
@@ -49,4 +56,4 @@ def load_progress_save_file():
 
 if __name__ == "__main__":
     progress = load_progress_save_file()
-    print(progress.discovered_epochs)
+    print(progress.discovered_potions)

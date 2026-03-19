@@ -24,6 +24,7 @@ class Progress:
         self.discovered_acts = set()
         self.discovered_relics = set()
         self.discovered_epochs = set()
+        self.discovered_potions = set()
 
     def discover_act(self, act: Act):
         self.discovered_acts.add(act)
@@ -33,3 +34,6 @@ class Progress:
 
     def discover_epoch(self, epoch):
         self.discovered_epochs.add(epoch)
+
+    def discover_potion(self, potion):
+        self.discovered_potions.add(potion)
