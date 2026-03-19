@@ -75,12 +75,13 @@ class SaveManager:
         self.parse_encounter_stats(progress_json)
         return self.progress
 
-def load_progress_save_file():
-    path_to_progress_file = input("Paste path to directory containing progress.save file: ")
-    progress_json = read_save_file_as_json(path.join(path_to_progress_file, "progress.save"))
-    progress = SaveManager().parse_progress_json(progress_json)
-    return progress
+    @staticmethod
+    def load_progress_save_file():
+        path_to_progress_file = input("Paste path to directory containing progress.save file: ")
+        progress_json = read_save_file_as_json(path.join(path_to_progress_file, "progress.save"))
+        progress = SaveManager().parse_progress_json(progress_json)
+        return progress
 
 if __name__ == "__main__":
-    progress = load_progress_save_file()
+    progress = SaveManager.load_progress_save_file()
     print(progress.seen_encounters)
