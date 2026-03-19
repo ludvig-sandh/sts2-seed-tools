@@ -167,6 +167,7 @@ def get_all_relics() -> List[str]:
         Relic("MeatOnTheBone", RelicRarity.RARE),
         Relic("MembershipCard", RelicRarity.SHOP),
         Relic("MercuryHourglass", RelicRarity.UNCOMMON),
+        Relic("Metronome", RelicRarity.RARE),
         Relic("MiniatureCannon", RelicRarity.UNCOMMON),
         Relic("MiniatureTent", RelicRarity.SHOP),
         Relic("MiniRegent", RelicRarity.RARE),
