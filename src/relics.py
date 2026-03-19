@@ -2,6 +2,9 @@ from typing import List
 from dataclasses import dataclass
 from enum import Enum
 
+from character import Character
+
+
 class RelicRarity(Enum):
     NONE = 0
     STARTER = 1
@@ -12,12 +15,12 @@ class RelicRarity(Enum):
     EVENT = 6
     ANCIENT = 7
 
-@dataclass
+@dataclass(frozen=True)
 class Relic:
     name: str
     rarity: RelicRarity
 
-def get_all_relics() -> List[str]:
+def get_all_relics() -> List["Relic"]:
     return set([
         Relic("Akabeko", RelicRarity.UNCOMMON),
         Relic("AlchemicalCoffer", RelicRarity.ANCIENT),
@@ -307,3 +310,64 @@ def get_all_relics() -> List[str]:
         Relic("WongosMysteryTicket", RelicRarity.EVENT),
         Relic("YummyCookie", RelicRarity.ANCIENT)
     ])
+
+def get_character_relics(character: Character) -> List["Relic"]:
+    relic_sets = {
+        Character.IRONCLAD: set([
+            Relic("Brimstone", RelicRarity.SHOP),
+            Relic("BurningBlood", RelicRarity.STARTER),
+            Relic("CharonsAshes", RelicRarity.RARE),
+            Relic("DemonTongue", RelicRarity.RARE),
+            Relic("PaperPhrog", RelicRarity.UNCOMMON),
+            Relic("RedSkull", RelicRarity.COMMON),
+            Relic("RuinedHelmet", RelicRarity.RARE),
+            Relic("SelfFormingClay", RelicRarity.UNCOMMON)
+        ]),
+        Character.SILENT: set([
+            Relic("HelicalDart", RelicRarity.RARE),
+            Relic("NinjaScroll", RelicRarity.SHOP),
+            Relic("PaperKrane", RelicRarity.RARE),
+            Relic("RingOfTheSnake", RelicRarity.STARTER),
+            Relic("SneckoSkull", RelicRarity.COMMON),
+            Relic("Tingsha", RelicRarity.UNCOMMON),
+            Relic("ToughBandages", RelicRarity.RARE),
+            Relic("TwistedFunnel", RelicRarity.UNCOMMON)
+        ]),
+        Character.REGENT: set([
+            Relic("DivineRight", RelicRarity.STARTER),
+            Relic("FencingManual", RelicRarity.COMMON),
+            Relic("GalacticDust", RelicRarity.UNCOMMON),
+            Relic("LunarPastry", RelicRarity.RARE),
+            Relic("MiniRegent", RelicRarity.RARE),
+            Relic("OrangeDough", RelicRarity.RARE),
+            Relic("Regalite", RelicRarity.UNCOMMON),
+            Relic("VitruvianMinion", RelicRarity.SHOP)
+        ]),
+        Character.NECROBINDER: set([
+            Relic("BigHat", RelicRarity.RARE),
+            Relic("BoneFlute", RelicRarity.COMMON),
+            Relic("BookRepairKnife", RelicRarity.UNCOMMON),
+            Relic("Bookmark", RelicRarity.RARE),
+            Relic("BoundPhylactery", RelicRarity.STARTER),
+            Relic("FuneraryMask", RelicRarity.UNCOMMON),
+            Relic("IvoryTile", RelicRarity.RARE),
+            Relic("UndyingSigil", RelicRarity.SHOP),
+        ]),
+        Character.DEFECT: set([
+            Relic("CrackedCore", RelicRarity.STARTER),
+            Relic("DataDisk", RelicRarity.COMMON),
+            Relic("EmotionChip", RelicRarity.RARE),
+            Relic("GoldPlatedCables", RelicRarity.UNCOMMON),
+            Relic("PowerCell", RelicRarity.RARE),
+            Relic("Metronome", RelicRarity.RARE),
+            Relic("RunicCapacitor", RelicRarity.SHOP),
+            Relic("SymbioticVirus", RelicRarity.UNCOMMON)
+        ])
+    }
+    return relic_sets[character]
+
+def get_shared_relics() -> List["Relic"]:
+    shared = get_all_relics()
+    for character in Character:
+        shared -= get_character_relics(character)
+    return shared
