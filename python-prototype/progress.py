@@ -20,9 +20,12 @@ class Act(Enum):
             raise ValueError(f"An act with name {name} doesn't exist.")
 
 class Progress:
-    # Default progress for a new save
     def __init__(self):
-        self.unlocked_acts = set([Act.OVERGROWTH, Act.HIVE, Act.GLORY])
+        self.unlocked_acts = set()
+        self.unlocked_relics = set()
 
     def unlock_act(self, act: Act):
         self.unlocked_acts.add(act)
+
+    def unlock_relic(self, relic):
+        self.unlocked_relics.add(relic)
