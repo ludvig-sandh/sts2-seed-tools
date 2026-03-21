@@ -19,6 +19,10 @@ class RunState:
         self.player_relic_grab_bag = dict()
 
         self.room_events_per_act = dict()
+        self.normal_encounters_per_act = dict()
+        self.elite_encounters_per_act = dict()
+        self.boss_per_act = dict()
+        self.ancient_per_act = dict()
 
     @staticmethod
     def create_for_new_run(seed: str, progress: Progress, acts: List["Act"], character: Character):
@@ -29,3 +33,15 @@ class RunState:
     
     def set_room_events_for_act(self, act, events):
         self.room_events_per_act[act] = events
+
+    def set_normal_encounters_for_act(self, act, encounters):
+        self.normal_encounters_per_act[act] = encounters
+
+    def set_elite_encounters_for_act(self, act, encounters):
+        self.elite_encounters_per_act[act] = encounters
+
+    def set_boss_for_act(self, act, boss):
+        self.boss_per_act[act] = boss
+
+    def set_ancient_for_act(self, act, ancient):
+        self.ancient_per_act[act] = ancient

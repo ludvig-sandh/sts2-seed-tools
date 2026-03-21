@@ -1,6 +1,6 @@
 from save_manager import SaveManager
 from run_state import RunState
-from act import ActGenerator, Act
+from act import ActHelper, Act
 from util import preprocess_seed
 from run_manager import RunManager
 from character import Character
@@ -15,12 +15,14 @@ class RunResult:
 def start_run(seed: str):
     seed = preprocess_seed(seed)
     progress = SaveManager.load_progress_save_file()
-    acts = ActGenerator.generate_act_list(seed, progress)
+    acts = ActHelper.generate_act_list(seed, progress)
     run_state = RunState.create_for_new_run(seed, progress, acts, Character.IRONCLAD)  # TODO: Don't hardcode ironclad
 
     RunManager.populate_relics(run_state)
     RunManager.generate_rooms(run_state)
     RunManager.enter_act(run_state, 0)
+    print("Player relic bag:", run_state.player_relic_grab_bag)
+    print("Act 1 boss: ", run_state.boss_per_act[acts[0]])
 
     return RunResult(acts)
     

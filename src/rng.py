@@ -40,6 +40,13 @@ class Rng:
             if min_val <= value <= max_val:
                 return value
             
+    def next_item(self, items):
+        if len(items) == 0:
+            return None
+        
+        index = self.next_int(len(items))
+        return items[index]
+            
     def unstable_shuffle(self, lst):
         num = len(lst)
         while num > 1:

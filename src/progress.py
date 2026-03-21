@@ -129,3 +129,14 @@ class Progress:
             locked_relics.add("PowerCell")
 
         return locked_relics
+    
+    def get_locked_ancients(self) -> List[str]:
+        locked_ancients = set()
+
+        if not self.is_epoch_discovered("NEOW_EPOCH"):
+            locked_ancients.add("Neow")
+
+        if not self.is_act_discovered("OROBAS_EPOCH"):
+            locked_ancients.add("Orobas")
+
+        return locked_ancients

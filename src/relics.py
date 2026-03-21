@@ -15,6 +15,59 @@ class RelicsManager:
         EVENT = 6
         ANCIENT = 7
 
+    CHARCATER_RELICS = {
+        Character.IRONCLAD: [
+            "Brimstone",
+            "BurningBlood",
+            "CharonsAshes",
+            "DemonTongue",
+            "PaperPhrog",
+            "RedSkull",
+            "RuinedHelmet",
+            "SelfFormingClay"
+        ],
+        Character.SILENT: [
+            "HelicalDart",
+            "NinjaScroll",
+            "PaperKrane",
+            "RingOfTheSnake",
+            "SneckoSkull",
+            "Tingsha",
+            "ToughBandages",
+            "TwistedFunnel"
+        ],
+        Character.REGENT: [
+            "DivineRight",
+            "FencingManual",
+            "GalacticDust",
+            "LunarPastry",
+            "MiniRegent",
+            "OrangeDough",
+            "Regalite",
+            "VitruvianMinion"
+        ],
+        Character.NECROBINDER: [
+            "BigHat",
+            "BoneFlute",
+            "BookRepairKnife",
+            "Bookmark",
+            "BoundPhylactery",
+            "FuneraryMask",
+            "IvoryTile",
+            "UndyingSigil"
+        ],
+        Character.DEFECT: [
+            "CrackedCore",
+            "DataDisk",
+            "EmotionChip",
+            "GoldPlatedCables",
+            "PowerCell",
+            "Metronome",
+            "RunicCapacitor",
+            "SymbioticVirus"
+        ]
+    }
+
     RELIC_RARITY_MAPPING = {
         "Akabeko": RelicRarity.UNCOMMON,
         "AlchemicalCoffer": RelicRarity.ANCIENT,
@@ -84,6 +137,7 @@ class RelicsManager:
         "DollysMirror": RelicRarity.SHOP,
         "DragonFruit": RelicRarity.SHOP,
         "DreamCatcher": RelicRarity.EVENT,
+        "Driftwood": RelicRarity.ANCIENT,
         "DustyTome": RelicRarity.ANCIENT,
         "Ectoplasm": RelicRarity.ANCIENT,
         "ElectricShrymp": RelicRarity.ANCIENT,
@@ -241,6 +295,7 @@ class RelicsManager:
         "SandCastle": RelicRarity.ANCIENT,
         "ScreamingFlagon": RelicRarity.SHOP,
         "ScrollBoxes": RelicRarity.ANCIENT,
+        "SeaGlass": RelicRarity.ANCIENT,
         "SealOfGold": RelicRarity.ANCIENT,
         "SelfFormingClay": RelicRarity.UNCOMMON,
         "SereTalon": RelicRarity.ANCIENT,
@@ -305,69 +360,133 @@ class RelicsManager:
         "YummyCookie": RelicRarity.ANCIENT
     }
 
+    @staticmethod
     def get_relic_rarity(relic_name: str) -> RelicRarity:
         return RelicsManager.RELIC_RARITY_MAPPING[relic_name]
 
-    def get_all_relics() -> List[str]:
-        return RelicsManager.RELIC_RARITY_MAPPING.keys()
-
+    @staticmethod
     def get_character_relics(character: Character) -> List[str]:
-        relic_sets = {
-            Character.IRONCLAD: set([
-                "Brimstone",
-                "BurningBlood",
-                "CharonsAshes",
-                "DemonTongue",
-                "PaperPhrog",
-                "RedSkull",
-                "RuinedHelmet",
-                "SelfFormingClay"
-            ]),
-            Character.SILENT: set([
-                "HelicalDart",
-                "NinjaScroll",
-                "PaperKrane",
-                "RingOfTheSnake",
-                "SneckoSkull",
-                "Tingsha",
-                "ToughBandages",
-                "TwistedFunnel"
-            ]),
-            Character.REGENT: set([
-                "DivineRight",
-                "FencingManual",
-                "GalacticDust",
-                "LunarPastry",
-                "MiniRegent",
-                "OrangeDough",
-                "Regalite",
-                "VitruvianMinion"
-            ]),
-            Character.NECROBINDER: set([
-                "BigHat",
-                "BoneFlute",
-                "BookRepairKnife",
-                "Bookmark",
-                "BoundPhylactery",
-                "FuneraryMask",
-                "IvoryTile",
-                "UndyingSigil"
-            ]),
-            Character.DEFECT: set([
-                "CrackedCore",
-                "DataDisk",
-                "EmotionChip",
-                "GoldPlatedCables",
-                "PowerCell",
-                "Metronome",
-                "RunicCapacitor",
-                "SymbioticVirus"
-            ])
-        }
-        return relic_sets[character]
+        return RelicsManager.CHARCATER_RELICS[character]
 
+    @staticmethod
     def get_shared_relics() -> List[str]:
-        shared = RelicsManager.get_all_relics()
-        for character in Character:
-            shared -= RelicsManager.get_character_relics(character)
-        return shared
+        return [
+            "Akabeko",
+			"AmethystAubergine",
+			"Anchor",
+			"ArtOfWar",
+			"BagOfMarbles",
+			"BagOfPreparation",
+			"BeatingRemnant",
+			"Bellows",
+			"BeltBuckle",
+			"BloodVial",
+			"BookOfFiveRings",
+			"BowlerHat",
+			"Bread",
+			"BronzeScales",
+			"BurningSticks",
+			"Candelabra",
+			"CaptainsWheel",
+			"Cauldron",
+			"CentennialPuzzle",
+			"Chandelier",
+			"ChemicalX",
+			"CloakClasp",
+			"DingyRug",
+			"DollysMirror",
+			"DragonFruit",
+			"EternalFeather",
+			"FestivePopper",
+			"FresnelLens",
+			"FrozenEgg",
+			"GamblingChip",
+			"GamePiece",
+			"GhostSeed",
+			"Girya",
+			"GnarledHammer",
+			"Gorget",
+			"GremlinHorn",
+			"HappyFlower",
+			"HornCleat",
+			"IceCream",
+			"IntimidatingHelmet",
+			"JossPaper",
+			"JuzuBracelet",
+			"Kifuda",
+			"Kunai",
+			"Kusarigama",
+			"Lantern",
+			"LastingCandy",
+			"LavaLamp",
+			"LeesWaffle",
+			"LetterOpener",
+			"LizardTail",
+			"LoomingFruit",
+			"LuckyFysh",
+			"Mango",
+			"MealTicket",
+			"MeatOnTheBone",
+			"MembershipCard",
+			"MercuryHourglass",
+			"MiniatureCannon",
+			"MiniatureTent",
+			"MoltenEgg",
+			"MummifiedHand",
+			"MysticLighter",
+			"Nunchaku",
+			"OddlySmoothStone",
+			"OldCoin",
+			"Orichalcum",
+			"OrnamentalFan",
+			"Orrery",
+			"Pantograph",
+			"ParryingShield",
+			"Pear",
+			"PenNib",
+			"Pendulum",
+			"Permafrost",
+			"PetrifiedToad",
+			"Planisphere",
+			"Pocketwatch",
+			"PotionBelt",
+			"PrayerWheel",
+			"PunchDagger",
+			"RainbowRing",
+			"RazorTooth",
+			"RedMask",
+			"RegalPillow",
+			"ReptileTrinket",
+			"RingingTriangle",
+			"RippleBasin",
+			"RoyalStamp",
+			"ScreamingFlagon",
+			"Shovel",
+			"Shuriken",
+			"SlingOfCourage",
+			"SparklingRouge",
+			"StoneCalendar",
+			"StoneCracker",
+			"Strawberry",
+			"StrikeDummy",
+			"SturdyClamp",
+			"TheAbacus",
+			"TheCourier",
+			"TinyMailbox",
+			"Toolbox",
+			"ToxicEgg",
+			"TungstenRod",
+			"TuningFork",
+			"UnceasingTop",
+			"UnsettlingLamp",
+			"Vajra",
+			"Vambrace",
+			"VenerableTeaSet",
+			"VeryHotCocoa",
+			"VexingPuzzlebox",
+			"WarPaint",
+			"Whetstone",
+			"WhiteBeastStatue",
+			"WhiteStar",
+			"WingCharm"
+        ]
