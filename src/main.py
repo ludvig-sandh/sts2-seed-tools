@@ -16,7 +16,7 @@ def start_run(seed: str):
     seed = preprocess_seed(seed)
     progress = SaveManager.load_progress_save_file()
     acts = ActGenerator.generate_act_list(seed, progress)
-    run_state = RunState.create_for_new_run(seed, progress, Character.IRONCLAD)  # TODO: Don't hardcode ironclad
+    run_state = RunState.create_for_new_run(seed, progress, acts, Character.IRONCLAD)  # TODO: Don't hardcode ironclad
 
     RunManager.populate_relics(run_state)
     RunManager.generate_rooms(run_state)
