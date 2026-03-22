@@ -113,8 +113,7 @@ class RunManager:
             run_state.shared_ancient_subsets_per_act[act] = shared_ancient_events[:count]
             shared_ancient_events = shared_ancient_events[count:]
 
-        for i in range(len(run_state.acts)):
-            act = run_state.acts[i]
+        for act in run_state.acts:
             all_events = EventDB.get_events_for_act(act) + EventDB.get_shared_events()
 
             # Remove locked events
@@ -127,7 +126,7 @@ class RunManager:
                 events_to_remove.append("ColorfulPhilosophers")
             events = [event for event in all_events if event not in events_to_remove]
             
-            events = run_state.rng_set.up_front.unstable_shuffle(events)
+            run_state.rng_set.up_front.unstable_shuffle(events)
             run_state.set_room_events_for_act(act, events)
 
             normal_encounters = []
