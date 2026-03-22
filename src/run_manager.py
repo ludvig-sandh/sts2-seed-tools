@@ -93,6 +93,8 @@ class RunManager:
         shared_relics = [r for r in RelicsManager.get_shared_relics() if r not in locked_relics]
         character_relics = [r for r in RelicsManager.get_character_relics(run_state.character) if r not in locked_relics]
         player_relics = shared_relics + character_relics
+        rarities_to_keep = [RelicsManager.RelicRarity.COMMON, RelicsManager.RelicRarity.UNCOMMON, RelicsManager.RelicRarity.RARE, RelicsManager.RelicRarity.SHOP]
+        player_relics = [r for r in player_relics if r in rarities_to_keep]
 
         run_state.shared_relic_grab_bag = group_relics_by_rarity_and_shuffle(shared_relics, run_state.rng_set.up_front)        
         run_state.player_relic_grab_bag = group_relics_by_rarity_and_shuffle(player_relics, run_state.rng_set.up_front)
