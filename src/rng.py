@@ -2,14 +2,23 @@ from dotnetrandom import DotNetRandom
 import math
 from util import get_deterministic_hash_code
 
+MASK32 = 0xFFFFFFFF
+def to_uint32(x: int) -> int:
+    return x & MASK32
+
+def to_int32(x: int) -> int:
+    x &= 0xFFFFFFFF
+    return x if x < 0x80000000 else x - 0x100000000
+
 class Rng:
     def __init__(self, seed: int, name: str = None, counter: int = 0):
-        self.seed = seed
+        self.seed = to_uint32(seed)
         if name is not None:
-            self.seed = seed + get_deterministic_hash_code(name)
+            hash_code = get_deterministic_hash_code(name)
+            self.seed = to_uint32(seed + to_uint32(hash_code))
 
         self.counter = 0
-        self.random = DotNetRandom(seed)
+        self.random = DotNetRandom(to_int32(self.seed))
 
         for _ in range(counter):
             self.next_int()

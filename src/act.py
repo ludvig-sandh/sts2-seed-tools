@@ -27,8 +27,12 @@ class ActHelper:
     DEFAULT_ACT_LIST = [Act.OVERGROWTH, Act.HIVE, Act.GLORY]
 
     @staticmethod
+    def get_default_act_list():
+        return ActHelper.DEFAULT_ACT_LIST[:]
+
+    @staticmethod
     def generate_act_list(seed: str, progress):
-        acts = ActHelper.DEFAULT_ACT_LIST
+        acts = ActHelper.get_default_act_list()
         rng = Rng(get_deterministic_hash_code(seed))
         
         if progress.is_epoch_discovered("UNDERDOCKS_EPOCH"):

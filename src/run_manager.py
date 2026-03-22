@@ -15,13 +15,12 @@ class BagItem:
     weight: float
 
 
-
 def group_relics_by_rarity_and_shuffle(relics: List[str], rng: Rng) -> Dict:
     relics_by_rarity = defaultdict(list)
     for relic in relics:
         rarity = RelicsManager.get_relic_rarity(relic)
         relics_by_rarity[rarity].append(relic)
-    for rarity in relics_by_rarity.keys():
+    for rarity in relics_by_rarity:
         relics_by_rarity[rarity] = rng.unstable_shuffle(relics_by_rarity[rarity])
     return relics_by_rarity
 
