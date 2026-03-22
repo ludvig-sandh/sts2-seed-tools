@@ -109,7 +109,7 @@ class RunManager:
 
         run_state.shared_ancient_subsets_per_act = defaultdict(list)
         for act in run_state.acts[1:]:
-            count = run_state.rng_set.up_front.next_int(len(shared_ancient_events))
+            count = run_state.rng_set.up_front.next_int(len(shared_ancient_events) + 1)
             run_state.shared_ancient_subsets_per_act[act] = shared_ancient_events[:count]
             shared_ancient_events = shared_ancient_events[count:]
 
